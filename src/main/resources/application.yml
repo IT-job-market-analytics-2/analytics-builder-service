@@ -1,0 +1,8 @@
+spring:
+  rabbitmq:
+    port: 5672
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    mongodb:
+      port: 27017

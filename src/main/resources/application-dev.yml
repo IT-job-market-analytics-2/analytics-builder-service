@@ -1,0 +1,15 @@
+spring:
+  rabbitmq:
+    host: rabbitmq
+    username: analytics_service
+    password: password
+  datasource:
+    url: jdbc:mysql://analytics_db:3306/analytics_db
+    username: analytics_service
+    password: password
+  data:
+    mongodb:
+      host: vacancies-db
+      database: vacancies_db
+      username: analytics_service
+      password: password
