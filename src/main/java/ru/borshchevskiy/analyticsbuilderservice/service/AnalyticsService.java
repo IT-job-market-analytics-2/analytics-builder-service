@@ -21,17 +21,21 @@ public class AnalyticsService {
 
     public void buildAnalytics() {
         List<VacancyEntity> vacancies = filterByCurrency(vacancyService.findAllWithSalary(), Currency.RUB);
-        Map<String, VacancyAnalyticsDto> queryDataMap = new HashMap<>();
+        Map<String, VacancyAnalyticsDto> perQueryVacancyAnalyticsMap = new HashMap<>();
         for (var vacancy : vacancies) {
             for (String query : vacancy.getQuery()) {
-                queryDataMap.merge(query,
-                        new VacancyAnalyticsDto(1, calculateVacancySalary(vacancy.getSalaryEntity())),
-                        this::updateQueryData);
+                perQueryVacancyAnalyticsMap.merge(query,
+                        getSingleVacancyAnalytics(vacancy),
+                        this::updateAnalyticsData);
             }
         }
     }
 
-    private VacancyAnalyticsDto updateQueryData(VacancyAnalyticsDto newData, VacancyAnalyticsDto existingData) {
+    private VacancyAnalyticsDto getSingleVacancyAnalytics(VacancyEntity vacancy) {
+        return new VacancyAnalyticsDto(1, calculateVacancySalary(vacancy.getSalaryEntity()));
+    }
+
+    private VacancyAnalyticsDto updateAnalyticsData(VacancyAnalyticsDto newData, VacancyAnalyticsDto existingData) {
         int newVacanciesCount = existingData.getTotalVacancies() + 1;
         double avgSalary = existingData.getAvgSalary();
         double salary = newData.getAvgSalary();
