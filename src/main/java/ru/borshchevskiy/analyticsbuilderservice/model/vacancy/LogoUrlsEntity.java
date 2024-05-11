@@ -1,4 +1,4 @@
-package ru.borshchevskiy.analyticsbuilderservice.model;
+package ru.borshchevskiy.analyticsbuilderservice.model.vacancy;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package ru.borshchevskiy.analyticsbuilderservice.service;
 
 import org.springframework.stereotype.Service;
-import ru.borshchevskiy.analyticsbuilderservice.model.VacancyEntity;
+import ru.borshchevskiy.analyticsbuilderservice.model.vacancy.VacancyEntity;
 import ru.borshchevskiy.analyticsbuilderservice.repository.VacancyRepository;
 
 import java.util.List;

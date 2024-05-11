@@ -2,8 +2,8 @@ package ru.borshchevskiy.analyticsbuilderservice.service;
 
 import org.springframework.stereotype.Service;
 import ru.borshchevskiy.analyticsbuilderservice.dto.Currency;
-import ru.borshchevskiy.analyticsbuilderservice.model.SalaryEntity;
-import ru.borshchevskiy.analyticsbuilderservice.model.VacancyEntity;
+import ru.borshchevskiy.analyticsbuilderservice.model.vacancy.SalaryEntity;
+import ru.borshchevskiy.analyticsbuilderservice.model.vacancy.VacancyEntity;
 
 import java.util.HashMap;
 import java.util.List;
