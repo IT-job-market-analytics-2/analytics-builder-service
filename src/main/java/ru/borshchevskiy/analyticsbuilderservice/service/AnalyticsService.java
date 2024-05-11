@@ -2,6 +2,7 @@ package ru.borshchevskiy.analyticsbuilderservice.service;
 
 import org.springframework.stereotype.Service;
 import ru.borshchevskiy.analyticsbuilderservice.dto.Currency;
+import ru.borshchevskiy.analyticsbuilderservice.dto.VacancyAnalyticsDto;
 import ru.borshchevskiy.analyticsbuilderservice.model.vacancy.SalaryEntity;
 import ru.borshchevskiy.analyticsbuilderservice.model.vacancy.VacancyEntity;
 
@@ -18,45 +19,19 @@ public class AnalyticsService {
         this.vacancyService = vacancyService;
     }
 
-    static class QueryData {
-        private int totalVacancies;
-        private Double avgSalary;
-
-        public QueryData(int totalVacancies, Double avgSalary) {
-            this.totalVacancies = totalVacancies;
-            this.avgSalary = avgSalary;
-        }
-
-        public int getTotalVacancies() {
-            return totalVacancies;
-        }
-
-        public void setTotalVacancies(int totalVacancies) {
-            this.totalVacancies = totalVacancies;
-        }
-
-        public Double getAvgSalary() {
-            return avgSalary;
-        }
-
-        public void setAvgSalary(Double avgSalary) {
-            this.avgSalary = avgSalary;
-        }
-    }
-
     public void buildAnalytics() {
         List<VacancyEntity> vacancies = filterByCurrency(vacancyService.findAllWithSalary(), Currency.RUB);
-        Map<String, QueryData> queryDataMap = new HashMap<>();
+        Map<String, VacancyAnalyticsDto> queryDataMap = new HashMap<>();
         for (var vacancy : vacancies) {
             for (String query : vacancy.getQuery()) {
                 queryDataMap.merge(query,
-                        new QueryData(1, calculateVacancySalary(vacancy.getSalaryEntity())),
+                        new VacancyAnalyticsDto(1, calculateVacancySalary(vacancy.getSalaryEntity())),
                         this::updateQueryData);
             }
         }
     }
 
-    private QueryData updateQueryData(QueryData newData, QueryData existingData) {
+    private VacancyAnalyticsDto updateQueryData(VacancyAnalyticsDto newData, VacancyAnalyticsDto existingData) {
         int newVacanciesCount = existingData.getTotalVacancies() + 1;
         double avgSalary = existingData.getAvgSalary();
         double salary = newData.getAvgSalary();
