@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class VacancyAnalyticsDto {
-    private int totalVacancies;
-    private Double avgSalary;
+    private int vacanciesCount;
+    private Double averageSalary;
 
-    public VacancyAnalyticsDto(int totalVacancies, Double avgSalary) {
-        this.totalVacancies = totalVacancies;
-        this.avgSalary = avgSalary;
+    public VacancyAnalyticsDto(int vacanciesCount, Double averageSalary) {
+        this.vacanciesCount = vacanciesCount;
+        this.averageSalary = averageSalary;
     }
 }

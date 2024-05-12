@@ -8,15 +8,15 @@ import ru.borshchevskiy.analyticsbuilderservice.dto.ScheduledTask;
 @Service
 public class TaskListenerService {
 
-    private final AnalyticsService analyticsService;
+    private final VacancyAnalyticsService vacancyAnalyticsService;
 
-    public TaskListenerService(AnalyticsService analyticsService) {
-        this.analyticsService = analyticsService;
+    public TaskListenerService(VacancyAnalyticsService vacancyAnalyticsService) {
+        this.vacancyAnalyticsService = vacancyAnalyticsService;
     }
 
     @RabbitListener(queues = "${spring.rabbitmq.queues.analytics-builder-scheduled-tasks-queue}")
     private void consumeTask(ScheduledTask scheduledTask) {
-        analyticsService.buildAnalytics();
+        vacancyAnalyticsService.buildAnalytics();
     }
 
 }
