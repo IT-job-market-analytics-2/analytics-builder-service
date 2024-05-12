@@ -31,7 +31,7 @@ public class VacancyAnalyticsService {
     }
 
     public void buildAnalytics() {
-        List<VacancyEntity> vacancies = filterByCurrency(vacancyService.findAllWithSalary(), Currency.RUR);
+        List<VacancyEntity> vacancies = vacancyService.findAllWithSalaryCurrency(Currency.RUR);
         Map<String, VacancyAnalyticsDto> perQueryVacancyAnalyticsMap = new HashMap<>();
         for (var vacancy : vacancies) {
             for (String query : vacancy.getQuery()) {
@@ -77,13 +77,6 @@ public class VacancyAnalyticsService {
         existingData.setVacanciesCount(newVacanciesCount);
         existingData.setAverageSalary(newAvgSalary);
         return existingData;
-    }
-
-    private List<VacancyEntity> filterByCurrency(List<VacancyEntity> vacancies, Currency currency) {
-        return vacancies.stream()
-                .filter(vacancy -> vacancy.getSalaryEntity().getCurrency() != null)
-                .filter(vacancy -> vacancy.getSalaryEntity().getCurrency().equals(currency.name()))
-                .toList();
     }
 
     private Double calculateVacancySalary(SalaryEntity salary) {
