@@ -53,7 +53,7 @@ public class VacancyAnalyticsService {
 
         existingAnalytics.ifPresentOrElse(
                 analytics -> {
-                    analytics.setVacancyCount(vacancyAnalyticsDto.getVacanciesCount());
+                    analytics.setVacancyCount(vacancyAnalyticsDto.getVacancyCount());
                     analytics.setAverageSalary(vacancyAnalyticsDto.getAverageSalary());
                     vacancyAnalyticsRepository.save(analytics);
                 },
@@ -69,12 +69,12 @@ public class VacancyAnalyticsService {
         return new VacancyAnalyticsDto(1, calculateVacancySalary(vacancy.getSalaryEntity()));
     }
 
-    private VacancyAnalyticsDto updateAnalyticsData(VacancyAnalyticsDto newData, VacancyAnalyticsDto existingData) {
-        int newVacanciesCount = existingData.getVacanciesCount() + 1;
+    private VacancyAnalyticsDto updateAnalyticsData(VacancyAnalyticsDto existingData, VacancyAnalyticsDto newData) {
+        int newVacanciesCount = existingData.getVacancyCount() + 1;
         double avgSalary = existingData.getAverageSalary();
         double salary = newData.getAverageSalary();
         double newAvgSalary = avgSalary + (salary - avgSalary) / newVacanciesCount;
-        existingData.setVacanciesCount(newVacanciesCount);
+        existingData.setVacancyCount(newVacanciesCount);
         existingData.setAverageSalary(newAvgSalary);
         return existingData;
     }

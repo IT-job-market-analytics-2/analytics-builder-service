@@ -12,7 +12,7 @@ public class VacancyAnalyticsMapper {
         VacancyAnalytics vacancyAnalytics = new VacancyAnalytics();
         vacancyAnalytics.setCreatedAt(createdAt);
         vacancyAnalytics.setQuery(query);
-        vacancyAnalytics.setVacancyCount(vacancyAnalytics.getVacancyCount());
+        vacancyAnalytics.setVacancyCount(vacancyAnalyticsDto.getVacancyCount());
         vacancyAnalytics.setAverageSalary(vacancyAnalyticsDto.getAverageSalary());
         return vacancyAnalytics;
     }
