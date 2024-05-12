@@ -31,7 +31,7 @@ public class VacancyAnalyticsService {
     }
 
     public void buildAnalytics() {
-        List<VacancyEntity> vacancies = filterByCurrency(vacancyService.findAllWithSalary(), Currency.RUB);
+        List<VacancyEntity> vacancies = filterByCurrency(vacancyService.findAllWithSalary(), Currency.RUR);
         Map<String, VacancyAnalyticsDto> perQueryVacancyAnalyticsMap = new HashMap<>();
         for (var vacancy : vacancies) {
             for (String query : vacancy.getQuery()) {
