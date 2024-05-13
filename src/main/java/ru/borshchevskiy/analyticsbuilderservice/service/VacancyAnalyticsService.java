@@ -1,5 +1,6 @@
 package ru.borshchevskiy.analyticsbuilderservice.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.borshchevskiy.analyticsbuilderservice.dto.Currency;
 import ru.borshchevskiy.analyticsbuilderservice.dto.VacancyAnalyticsDto;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class VacancyAnalyticsService {
 
     private final VacancyService vacancyService;
@@ -31,7 +33,9 @@ public class VacancyAnalyticsService {
     }
 
     public void buildAnalytics() {
+        log.debug("Started building analytics");
         List<VacancyEntity> vacancies = vacancyService.findAllWithSalaryCurrency(Currency.RUR);
+        log.debug("Found {} vacancies with salary in RUR", vacancies.size());
         Map<String, VacancyAnalyticsDto> perQueryVacancyAnalyticsMap = new HashMap<>();
         for (var vacancy : vacancies) {
             for (String query : vacancy.getQuery()) {
@@ -40,6 +44,7 @@ public class VacancyAnalyticsService {
                         this::updateAnalyticsData);
             }
         }
+        log.debug("Prepared analytics data for queries: {}", perQueryVacancyAnalyticsMap.keySet());
         for (var entry : perQueryVacancyAnalyticsMap.entrySet()) {
             saveAnalytics(entry.getKey(), entry.getValue());
         }
@@ -47,20 +52,24 @@ public class VacancyAnalyticsService {
 
     public void saveAnalytics(String query, VacancyAnalyticsDto vacancyAnalyticsDto) {
         LocalDate createdAt = LocalDate.now();
-
+        log.debug("Starting saving analytics data for query: {}, on date: {}.", query, createdAt);
         Optional<VacancyAnalytics> existingAnalytics =
                 vacancyAnalyticsRepository.findByQueryAndCreatedAt(query, createdAt);
 
         existingAnalytics.ifPresentOrElse(
                 analytics -> {
+                    log.debug("Analytics for query {} on date {} already present. Updating analytics data...",
+                            query, createdAt);
                     analytics.setVacancyCount(vacancyAnalyticsDto.getVacancyCount());
                     analytics.setAverageSalary(vacancyAnalyticsDto.getAverageSalary());
                     vacancyAnalyticsRepository.save(analytics);
+                    log.debug("Analytics for query {} on date {} successfully updated.", query, createdAt);
                 },
                 () -> {
                     VacancyAnalytics vacancyAnalytics =
                             vacancyAnalyticsMapper.mapToEntity(vacancyAnalyticsDto, query, createdAt);
                     vacancyAnalyticsRepository.save(vacancyAnalytics);
+                    log.debug("Analytics for query {} on date {} successfully saved.", query, createdAt);
                 }
         );
     }
