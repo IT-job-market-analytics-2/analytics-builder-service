@@ -1,5 +1,7 @@
 spring:
   rabbitmq:
+    queues:
+      analytics-builder-scheduled-tasks-queue: analytics-builder-scheduled-tasks-queue
     port: 5672
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
