@@ -2,6 +2,7 @@ package ru.borshchevskiy.analyticsbuilderservice.model.analytics;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
@@ -10,9 +11,13 @@ import java.time.LocalDate;
 @Table("Vacancy_analytics")
 public class VacancyAnalytics {
     @Id
-    private Long id;
+    private Integer id;
+    @Column("date")
     private LocalDate createdAt;
+    @Column("query")
     private String query;
+    @Column("vacancy_count")
     private int vacancyCount;
+    @Column("average_salary")
     private Double averageSalary;
 }
