@@ -1,4 +1,4 @@
 package ru.borshchevskiy.analyticsbuilderservice.dto;
 
-public record ScheduledTask() {
+public class AnalyticsBuilderServiceTaskDto {
 }
