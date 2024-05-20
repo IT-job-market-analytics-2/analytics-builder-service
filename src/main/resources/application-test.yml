@@ -1,0 +1,17 @@
+spring:
+  rabbitmq:
+    host:
+    username:
+    password:
+    port:
+  datasource:
+    url:
+    username:
+    password:
+  sql:
+    init:
+      mode: always
+  data:
+    mongodb:
+      uri:
+

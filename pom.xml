@@ -16,6 +16,9 @@
     <properties>
         <java.version>17</java.version>
         <lombok.version>1.18.32</lombok.version>
+        <tc.mysql.version>1.19.8</tc.mysql.version>
+        <tc.mongodb.version>1.19.8</tc.mongodb.version>
+        <tc.rabbitmq.version>1.19.8</tc.rabbitmq.version>
         <jackson.databind.version>2.17.1</jackson.databind.version>
         <jackson.core.version>2.17.1</jackson.core.version>
     </properties>
@@ -44,6 +47,32 @@
         <dependency>
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
+            <version>${tc.mysql.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mongodb</artifactId>
+            <version>${tc.mongodb.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>rabbitmq</artifactId>
+            <version>${tc.rabbitmq.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
