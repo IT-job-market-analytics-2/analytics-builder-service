@@ -1,0 +1,35 @@
+name: Docker publish
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3.2.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      # Extracts metadata from Git reference and GitHub events
+      # https://github.com/docker/metadata-action
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: jobmarket2024/analytics-builder-service
+      # Build and push Docker image with
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v5.3.0
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: ${{ secrets.DOCKER_USERNAME }}/analytics-builder-service:${{ github.ref_name }}
+          push: true
