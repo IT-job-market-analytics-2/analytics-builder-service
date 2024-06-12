@@ -1,4 +1,4 @@
-create table if not exists Vacancy_analytics (
+create table if not exists vacancy_analytics (
     id bigint auto_increment primary key,
     date date,
     query varchar(255),
