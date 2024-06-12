@@ -8,7 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDate;
 
 @Data
-@Table("Vacancy_analytics")
+@Table("vacancy_analytics")
 public class VacancyAnalytics {
     @Id
     private Integer id;
