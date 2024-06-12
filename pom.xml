@@ -21,7 +21,7 @@
         <tc.rabbitmq.version>1.19.8</tc.rabbitmq.version>
         <jackson.databind.version>2.17.1</jackson.databind.version>
         <jackson.core.version>2.17.1</jackson.core.version>
-        <start-class>ru/borshchevskiy/analyticsbuilderservice/AnalyticsBuilderServiceApplication</start-class>
+        <start-class>ru.borshchevskiy.analyticsbuilderservice.AnalyticsBuilderServiceApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
