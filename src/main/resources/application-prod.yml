@@ -4,7 +4,7 @@ spring:
     username: ${RABBITMQ_USERNAME}
     password: ${RABBITMQ_PASSWORD}
   datasource:
-    url: jdbc:mysql://analytics_db:3306/${MYSQL_DATABASE}
+    url: jdbc:mysql://analytics-db:3306/${MYSQL_DATABASE}
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
   data:
